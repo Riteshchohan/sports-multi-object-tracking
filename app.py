@@ -11,7 +11,7 @@ model = YOLO("yolo11s.pt")
 
 def process_video(video_file, confidence: float = 0.4):
     if video_file is None:
-        return None, "❌ Please upload a video file"
+        return None, " Please upload a video file"
 
     try:
         # Handle both cases: file object or file path (string)
@@ -27,7 +27,7 @@ def process_video(video_file, confidence: float = 0.4):
 
         cap = cv2.VideoCapture(input_path)
         if not cap.isOpened():
-            return None, "❌ Could not open the video file. Please try another video."
+            return None, " Could not open the video file. Please try another video."
 
         fps = int(cap.get(cv2.CAP_PROP_FPS)) or 30
         width = int(cap.get(cv2.CAP_PROP_FRAME_WIDTH))
@@ -81,7 +81,7 @@ def process_video(video_file, confidence: float = 0.4):
         cap.release()
         out.release()
 
-        return output_path, f"✅ Success! Processed {frame_count} frames with persistent IDs."
+        return output_path, f" Success! Processed {frame_count} frames with persistent IDs."
 
     except Exception as e:
         print(traceback.format_exc())
@@ -89,13 +89,13 @@ def process_video(video_file, confidence: float = 0.4):
 
 # ====================== UI ======================
 with gr.Blocks(title="Sports Multi-Object Tracking", theme=gr.themes.Soft()) as demo:
-    gr.Markdown("# ⚽ Multi-Object Detection & Persistent ID Tracking\n**YOLO11s + BoT-SORT**")
+    gr.Markdown("# Multi-Object Detection & Persistent ID Tracking\n**YOLO11s + BoT-SORT**")
 
     with gr.Row():
         with gr.Column():
             input_video = gr.Video(label="Upload Sports Video (Short clips work best)")
             confidence = gr.Slider(0.3, 0.8, value=0.4, step=0.05, label="Confidence Threshold")
-            process_button = gr.Button("🚀 Start Tracking", variant="primary", size="large")
+            process_button = gr.Button(" Start Tracking", variant="primary", size="large")
 
         with gr.Column():
             output_video = gr.Video(label="Output: Tracked Video with IDs")
